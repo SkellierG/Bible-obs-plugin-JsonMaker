@@ -49,8 +49,6 @@ function handleFiles() {
         reader.readAsText(file);
         
         finalJson = result;
-
-        console.log(JSON.stringify(result, null, 2)); // Muestra el resultado en la consola
     }
 }
 function downloadJSON() {
@@ -71,4 +69,8 @@ function downloadJSON() {
   link.href = url;
   link.download = filename;
   link.click();
+}
+function debug() {
+  let temp = JSON.stringify(result, null, 2); // Muestra el resultado en la consola
+  console.log(temp);
 }
