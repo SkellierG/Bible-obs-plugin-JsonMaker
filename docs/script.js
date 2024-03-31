@@ -1,3 +1,5 @@
+let finalJson;
+
 function handleFiles() {
     const files = document.getElementById('fileInput').files;
     const result = {
@@ -45,7 +47,28 @@ function handleFiles() {
         };
 
         reader.readAsText(file);
-    }
+        
+        finalJson = result;
 
-    console.log(JSON.stringify(result, null, 2)); // Muestra el resultado en la consola
+        console.log(JSON.stringify(result, null, 2)); // Muestra el resultado en la consola
+    }
+}
+function downloadJSON() {
+  result = finalJson
+  if (!result) {
+    console.error("No hay resultado para descargar.");
+    return;
+  }
+
+  const resultJSON = JSON.stringify(result, null, 2);
+  const filename = result.Name.toLowerCase().replace(/\s/g, '-') + '.js';
+  const fileContent = `ObsBiblePlugin.importBible(${resultJSON});`;
+
+  // Crear y descargar el archivo
+  const blob = new Blob([fileContent], { type: 'text/javascript' });
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
 }
