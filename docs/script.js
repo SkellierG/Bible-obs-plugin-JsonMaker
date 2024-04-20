@@ -47,7 +47,7 @@ function handleFiles() {
         };
 
         reader.readAsText(file);
-        
+        //console.log(result)
         finalJson = result;
     }
 }
@@ -59,8 +59,9 @@ function downloadJSON() {
   }
 
   const resultJSON = JSON.stringify(result, null, 2);
-  const filename = result.Name.toLowerCase().replace(/\s/g, '-') + '.js';
-  const fileContent = `ObsBiblePlugin.importBible(${resultJSON});`;
+  const filename = result.Name.toLowerCase().replace(/\s/g, ' ') + '.js';
+  const fileContent = `ObsBiblePlugin.importBible(${resultJSON.toString()});`;
+  console.log(fileContent)
 
   // Crear y descargar el archivo
   const blob = new Blob([fileContent], { type: 'text/javascript' });
@@ -71,6 +72,6 @@ function downloadJSON() {
   link.click();
 }
 function debug() {
-  let temp = JSON.stringify(result, null, 2); // Muestra el resultado en la consola
+  let temp = JSON.stringify(finalJson, null, 2); // Muestra el resultado en la consola
   console.log(temp);
 }
